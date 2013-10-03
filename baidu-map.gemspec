@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'baidu/map/version'
+require 'baidu_map/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "baidu-map"
-  spec.version       = Baidu::Map::VERSION
+  spec.version       = BaiduMap::VERSION
   spec.authors       = ["inetufo"]
   spec.email         = ["inetufo@163.com"]
   spec.description   = %q{TODO: Write a gem description}
