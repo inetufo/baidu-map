@@ -6,10 +6,10 @@ module BaiduMap
     extend Forwardable
     def_delegators :@options, :key, :keyword, :radius, :page_size, :page_num
 
-    attr_reader :lat, :lng
+    attr_reader :lat, :lng, :region
         
-    def initialize(lat, lng, options = {})
-      @lat, @lng = lat, lng
+    def initialize(lat, lng, region, options = {})
+      @lat, @lng, @region = lat, lng, region
       options[:key]  ||= key
       options[:keyword]  ||= keyword
       options[:radius]  ||= 1000
@@ -34,7 +34,7 @@ module BaiduMap
     private
     
     def base_request
-      req = "http://api.map.baidu.com/place/v2/eventsearch?query=#{keyword}&event=groupon&location=#{lat},#{lng}&radius=#{radius}&output=json&page_size=#{page_size}&page_num=#{page_num}&ak=#{key}"
+      req = "http://api.map.baidu.com/place/v2/eventsearch?query=#{keyword}&event=groupon&region=#{region}&location=#{lat},#{lng}&radius=#{radius}&output=json&page_size=#{page_size}&page_num=#{page_num}&ak=#{key}"
       req
     end
     
