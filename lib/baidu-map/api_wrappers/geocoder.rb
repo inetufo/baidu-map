@@ -2,8 +2,9 @@ module BaiduMap
 
   class Geocoder
     include BaseNetMethods
-
-    attr_reader :address, :language, :raw, :protocol
+    extend Forwardable
+    def_delegators :@options, :key
+    attr_reader :address, :city
 
     def initialize(address, city, options = {})
       raise BaiduMap::GeocodeInvalidQuery, "You must provide an address" if address.blank?
