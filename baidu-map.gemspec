@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = BaiduMap::VERSION
   spec.authors       = ["inetufo"]
   spec.email         = ["inetufo@163.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{baidu map ruby wrapper}
+  spec.summary       = %q{baidu map ruby wrapper}
   spec.homepage      = ""
   spec.license       = "MIT"
 
