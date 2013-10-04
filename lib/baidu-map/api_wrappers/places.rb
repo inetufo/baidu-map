@@ -59,7 +59,8 @@ module BaiduMap
     end
     
     def get_response
-      open(base_url).read
+      #open(base_url).read
+      RestClient.get(base_url)
     end
     
   end
