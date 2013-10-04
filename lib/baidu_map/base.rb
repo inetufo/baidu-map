@@ -5,9 +5,16 @@ require 'ostruct'
 
 module BaiduMap
 
+  autoload :BaseNetMethods,   'baidu_map/api_wrappers/base_net_methods'
   autoload :Geocoder,         'baidu_map/api_wrappers/geocoder'
   autoload :Places,           'baidu_map/api_wrappers/places'
 
+  def BaiduMap.geocode(address, city, key)
+    ::BaiduMap::Geocoder.new(address, city, {
+      :key => key
+    }).get_coordinates
+  end
+  
   def BaiduMap.places(lat, lng, key, keyword = nil, radius = 1000, page_size = 10, page_num = 1)
     BaiduMap::Places.new(lat, lng, region, {
       :key      => key,

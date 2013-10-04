@@ -5,13 +5,12 @@ module BaiduMap
 
     attr_reader :address, :language, :raw, :protocol
 
-    def initialize(address, options = {})
-      raise Gmaps4rails::GeocodeInvalidQuery, "You must provide an address" if address.blank?
+    def initialize(address, city, options = {})
+      raise BaiduMap::GeocodeInvalidQuery, "You must provide an address" if address.blank?
 
-      @address  = address
-      @language = options[:language] || "en"
-      @raw      = options[:raw]      || false
-      @protocol = options[:protocol] || "http"
+      @address, @city = address, city
+      options[:key]  ||= key
+      @options = OpenStruct.new options
     end
 
     # returns an array of hashes with the following keys:
@@ -21,28 +20,23 @@ module BaiduMap
     # - bounds:          facultative
     # - full_data:       facultative
     def get_coordinates
-      checked_google_response do
-        return parsed_response if raw
-        parsed_response["results"].inject([]) do |memo, result|
-          memo << {
-                   :lat             => result["geometry"]["location"]["lat"],
-                   :lng             => result["geometry"]["location"]["lng"],
-                   :matched_address => result["formatted_address"],
-                   :bounds          => result["geometry"]["bounds"],
-                   :full_data       => result
-                  }
-        end
+      parsed_response["result"].inject([]) do |memo, result|
+        memo << {
+            :lat => result["location"]["lat"],
+            :lng => result["location"]["lng"],
+            :full_data => result
+        }
       end
     end
 
     private
 
     def base_request
-      "#{protocol}://maps.googleapis.com/maps/api/geocode/json?language=#{language}&address=#{address}&sensor=false"
+      "http://api.map.baidu.com/geocoder?address=#{address}&output=json&key=#{key}&city=#{city}"
     end
 
     def raise_net_status
-      raise BaiduMap::GeocodeNetStatus, "The request sent to google was invalid (not http success): #{base_request}.\nResponse was: #{response}"
+      raise BaiduMap::GeocodeNetStatus, "The request sent to baidu was invalid (not http success): #{base_request}.\nResponse was: #{response}"
     end
 
     def raise_query_error

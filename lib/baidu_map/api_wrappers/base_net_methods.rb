@@ -30,11 +30,9 @@ module BaiduMap
       @parsed_response ||= JSON.parse(response.body)
     end
     
-    # def get_response
-    #   url = URI.parse(base_url)
-    #   http = Gmaps4rails.http_agent
-    #   http.get_response(url)
-    # end
+    def get_response
+      open(base_url).read
+    end
     
   end
 end
