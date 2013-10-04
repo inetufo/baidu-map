@@ -15,7 +15,7 @@ module BaiduMap
     }).get_coordinates
   end
   
-  def BaiduMap.places(lat, lng, key, keyword = nil, radius = 1000, page_size = 10, page_num = 1)
+  def BaiduMap.places(lat, lng, region, key, keyword = nil, radius = 1000, page_size = 10, page_num = 1)
     BaiduMap::Places.new(lat, lng, region, {
       :key      => key,
       :keyword  => keyword,
