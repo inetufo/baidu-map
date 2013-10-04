@@ -1,6 +1,6 @@
 module BaiduMap
   require 'rails'
-  require 'baidu_map/base'
+  require 'baidu-map/base'
   
   class Engine < Rails::Engine
      
