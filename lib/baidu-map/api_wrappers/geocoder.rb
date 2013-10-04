@@ -13,20 +13,13 @@ module BaiduMap
       @options = OpenStruct.new options
     end
 
-    # returns an array of hashes with the following keys:
-    # - lat: mandatory for acts_as_gmappable
-    # - lng: mandatory for acts_as_gmappable
-    # - matched_address: facultative
-    # - bounds:          facultative
-    # - full_data:       facultative
     def get_coordinates
-      parsed_response["result"].inject([]) do |memo, result|
-        memo << {
-            :lat => result["location"]["lat"],
-            :lng => result["location"]["lng"],
-            :full_data => result
-        }
-      end
+      result = parsed_response["result"]
+      {
+          :lat => result["location"]["lat"],
+          :lng => result["location"]["lng"],
+          :full_data => result
+      }
     end
 
     private
