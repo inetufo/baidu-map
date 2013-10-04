@@ -11,7 +11,7 @@ module BaiduMap
     end
 
     def base_url
-      base_request
+      URI.escape base_request
     end
 
     def response
